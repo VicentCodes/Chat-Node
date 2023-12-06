@@ -32,7 +32,6 @@ Explore a live demo of Node-Chat by visiting [ChatDemo](https://chatweb-j27h.onr
 
    ```
    MONGODB_URI=your_mongodb_url
-
    ```
 
    Adjust the `PORT` value if needed.
