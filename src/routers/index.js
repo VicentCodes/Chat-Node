@@ -119,7 +119,7 @@ router.get("/sse", createSessionCheck, (req, res) => {
 });
 
 // Ruta para enviar mensajes
-router.post("/send", async (req, res) => {
+router.post("/send",createSessionCheck, async (req, res) => {
   if (usuario) {
     const message = req.body.mensaje;
     const nuevoMensaje = new chats({
