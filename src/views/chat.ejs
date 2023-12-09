@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>VicentCodes Chat Example</title>
+    <meta name="author" content="VicentCodes">
+    <meta name="description" content="Chat Example">
+    <meta name="keywords" content="Chat, Node, Express, Socket.io, JavaScript">
+    <link rel="icon" href="https://vicentcode.dev/images/logo.ico" type="image/x-icon">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -13,7 +18,7 @@
     <style>
         /* Variables dinamicas */
 
-       
+
 
         .chat-message[data-username="<%= userA %>"] {
             background-color: #009454;
@@ -26,7 +31,7 @@
             align-self: flex-end;
         }
 
-       
+
         .chat-message:not([data-username="<%= userA %>"]) {
             background-color: #e3e3e3;
             color: #000;
@@ -53,7 +58,7 @@
     <div class="container contMain">
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">Chat</h5>
+                <h3 class="mb-0 titleChat">Chat</h3>
             </div>
             <form action="/send" method="post">
                 <div class="form-floating">
@@ -63,7 +68,7 @@
                                 <div class="chat-message" data-username="<%= mensaje.user %>">
                                     <%= mensaje.user + ': ' + mensaje.message %>
                                 </div>
-                            <% }); %>
+                                <% }); %>
                         </div>
                         <div class="input-group mb-3">
                             <input type="text" name="mensaje" class="form-control" style="margin-left: 10px;"
@@ -71,10 +76,10 @@
                             <button type="submit" class="btn btn-primary" id="se">Enviar</button>
                         </div>
                     </div>
-                   
-                    
+
+
                 </div>
-               
+
             </form>
             <a href="/logout" class="btn btn-danger logout">Cerrar Sesión</a>
         </div>
