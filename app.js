@@ -32,6 +32,8 @@ app.set('view engine', 'ejs');
 
 app.listen(app.get('port'), () => {
     console.log('El servidor está funcionando en el puerto', app.get('port'));
+    console.log('http://localhost:' + app.get('port'));
+
 });
 
 
@@ -39,6 +41,6 @@ app.listen(app.get('port'), () => {
 
 
 mongoose.connect(mongoURL)
-.then(bd=>console.log('BD Mongo "ChatU2" conectado'))
-.catch(err=>console.log(err));
+    .then(bd => console.log('BD Mongo "ChatU2" conectado'))
+    .catch(err => console.log(err));
 

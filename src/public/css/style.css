@@ -7,6 +7,16 @@
   line-height: 1.7;
   text-align: left;
 }
+.logout{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+.contMain{
+  margin-bottom: 10px;
+}
 
 #chat2 .form-control {
   border-color: transparent;
@@ -90,6 +100,9 @@ body {
   width: calc(100% - 60px);
   border-radius: 10px;
   margin: 30px;
+  
+  margin: 3;
+  overflow: hidden;
 }
 
 .chat-messages {
@@ -99,6 +112,21 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
   padding: 10px;
+
+  display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow-y: auto;
+}
+
+.input-group {
+  margin-top: auto;
+}
+
+.chat-messages-right{
+   display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 #user-input {

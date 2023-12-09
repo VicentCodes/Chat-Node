@@ -12,112 +12,88 @@
 
     <style>
         /* Variables dinamicas */
+
+       
+
         .chat-message[data-username="<%= userA %>"] {
             background-color: #009454;
             color: #ffffff;
             margin-top: 5px;
             margin-bottom: 5px;
-            margin-left: 40px;
-            padding-left: 10px;
-            border-radius: 8px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            position: relative;
+            margin-left: 20%;
+            margin-right: 5px;
+            width: fit-content;
+            align-self: flex-end;
         }
 
-        .chat-message[data-username="<%= userA %>"]::before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            border-width: 0 30px 30px 0;
-            border-style: solid;
-            border-color: transparent transparent #009454 transparent;
-        }
-
+       
         .chat-message:not([data-username="<%= userA %>"]) {
             background-color: #e3e3e3;
             color: #000;
-
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             margin-right: 40px;
             padding-right: 10px;
-            margin-left: 15px;
+            margin-right: 20%;
+            margin-left: 5px;
             border-radius: 8px;
             padding-top: 5px;
             padding-bottom: 5px;
             padding-left: 10px;
+            align-self: flex-start;
+        }
+
+        .input-group {
+            margin-top: auto;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="container contMain">
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Chat</h5>
             </div>
             <form action="/send" method="post">
-                <div class="form-floatinjg" style="
-                                                height: 85vh;
-                                                margin: 3;
-                                                overflow: hidden;">
+                <div class="form-floating">
                     <div class="chat-container">
-
-
                         <div class="chat-messages" id="chat-container">
                             <% mensajes.forEach(mensaje=> { %>
                                 <div class="chat-message" data-username="<%= mensaje.user %>">
                                     <%= mensaje.user + ': ' + mensaje.message %>
                                 </div>
-                                <% }); %>
+                            <% }); %>
                         </div>
-
-
-
                         <div class="input-group mb-3">
-                            <input type="text" name="mensaje" class="form-control" style="
-                        margin-left: 10px;" placeholder="Escribe un mensaje..." required>
+                            <input type="text" name="mensaje" class="form-control" style="margin-left: 10px;"
+                                placeholder="Escribe un mensaje..." required>
                             <button type="submit" class="btn btn-primary" id="se">Enviar</button>
                         </div>
                     </div>
-
-
-
-
-
+                   
+                    
                 </div>
+               
             </form>
-<!-- Agrega el botón de cerrar sesión en tu archivo EJS, por ejemplo, en el encabezado -->
-                <a href="/logout" class="btn btn-danger" style="margin-left: 10px;">Cerrar Sesión</a>
-
+            <a href="/logout" class="btn btn-danger logout">Cerrar Sesión</a>
         </div>
     </div>
 
     <script>
-
         // evento actualizacion de clientes realTimeChat
         const eventSource = new EventSource("/sse");
         const chatContainer = document.getElementById("chat-container");
         eventSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
             const messageP = `<div class="chat-message" data-username="${data.user}">${data.user + ': ' + data.message}</div>`;
-            const chatContainer = document.getElementById("chat-container");
             chatContainer.innerHTML += messageP;
             chatContainer.scrollTop = chatContainer.scrollHeight;
         };
         document.addEventListener("DOMContentLoaded", function () {
             chatContainer.scrollTop = chatContainer.scrollHeight;
         })
-
     </script>
-
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
