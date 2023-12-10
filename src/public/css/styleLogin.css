@@ -94,3 +94,31 @@ body{
   margin-left: 10px;
 
 }
+
+
+.error-container {
+  background-color: #ff6666;
+  color: #fff;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  text-align: justify;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.errorMessage{
+  margin-top: 20px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+}

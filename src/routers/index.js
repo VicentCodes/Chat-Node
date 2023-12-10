@@ -10,8 +10,8 @@ const net = require("net");
 const chats = require("../models/chats.js");
 const mensajes = [];
 
-let mensaje = '';
-let usuario = '';
+let mensaje = "";
+let usuario = "";
 
 router.use(
   session({
@@ -64,7 +64,7 @@ router.get("/chat", createSessionCheck, async (req, res) => {
   try {
     const mensajes = await chats.find();
     const userA = req.session.username;
-    res.render('chat.ejs', { mensajes, userA });
+    res.render("chat.ejs", { mensajes, userA });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error al obtener los mensajes");
@@ -75,13 +75,17 @@ router.get("/chat", createSessionCheck, async (req, res) => {
 router.post("/vice", async (req, res) => {
   const { username, userpassword } = req.body;
   usuario = username;
-  req.session.username = username
+  req.session.username = username;
 
   try {
-    const user = await Login.findOne({ username  });
+    const user = await Login.findOne({ username });
 
     if (!user || userpassword !== user.pass) {
-      return res.status(401).send("Nombre de usuario o contraseña incorrecta");
+      return res
+        .status(500)
+        .render("login", {
+          error: "Nombre de usuario o contraseña incorrecta",
+        });
     }
     //creacion de token
     const usuario = { id: 1, nombre: "Ejemplo" };
@@ -99,7 +103,7 @@ router.post("/vice", async (req, res) => {
 router.post("/register", async (req, res) => {
   const valor = new Login(req.body);
   await valor.save();
-  res.redirect('/login');
+  res.redirect("/login");
 });
 
 // Manejo de conexiones de eventos servidor-sentido (SSE)
@@ -119,7 +123,7 @@ router.get("/sse", createSessionCheck, (req, res) => {
 });
 
 // Ruta para enviar mensajes
-router.post("/send",createSessionCheck, async (req, res) => {
+router.post("/send", createSessionCheck, async (req, res) => {
   if (usuario) {
     const message = req.body.mensaje;
     const nuevoMensaje = new chats({
@@ -131,10 +135,15 @@ router.post("/send",createSessionCheck, async (req, res) => {
       await nuevoMensaje.save();
 
       sseClients.forEach((client) => {
-        client.write(`data: ${JSON.stringify({ user: req.session.username, message })}\n\n`);
+        client.write(
+          `data: ${JSON.stringify({
+            user: req.session.username,
+            message,
+            formattedTimestamp: nuevoMensaje.formattedTimestamp,
+          })}\n\n`
+        );
       });
-
-      res.redirect('/chat');
+      res.redirect("/chat");
     } catch (error) {
       console.error(error);
       res.status(500).send("Error al guardar el mensaje en la base de datos");
@@ -143,7 +152,6 @@ router.post("/send",createSessionCheck, async (req, res) => {
     res.status(400).send("Nombre de usuario no disponible");
   }
 });
-
 
 // Logout
 
@@ -155,6 +163,5 @@ router.get("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
-
 
 module.exports = router;

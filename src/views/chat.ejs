@@ -16,49 +16,56 @@
     <link rel="stylesheet" href="./css/style.css">
 
     <style>
-        /* Variables dinamicas */
-
-
-
         .chat-message[data-username="<%= userA %>"] {
             background-color: #009454;
             color: #ffffff;
             margin-top: 5px;
             margin-bottom: 5px;
-            margin-left: 20%;
+            margin-left: 30%;
             margin-right: 5px;
+            padding: 5px;
+            padding-left: 10px;
+            border-radius: 8px;
+            text-align: start;
+            display: grid;
             width: fit-content;
             align-self: flex-end;
         }
 
+        .chat-date[data-username="<%= userA %>"] {
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .chat-date:not([data-username="<%= userA %>"]) {
+            font-size: 12px;
+            text-align: left;
+        }
 
         .chat-message:not([data-username="<%= userA %>"]) {
             background-color: #e3e3e3;
             color: #000;
             margin-bottom: 5px;
             margin-right: 40px;
-            padding-right: 10px;
-            margin-right: 20%;
+            margin-right: 30%;
             margin-left: 5px;
             border-radius: 8px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
+            display: grid;
+            text-align: start;
+            padding: 5px;
+            padding-right: 10px;
             align-self: flex-start;
-        }
-
-        .input-group {
-            margin-top: auto;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container contMain">
+    <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-0 titleChat">Chat</h3>
+                <h3 class="mb-0 titleChat">Bienvenido <%= userA %>
+                </h3>
             </div>
             <form action="/send" method="post">
                 <div class="form-floating">
@@ -66,10 +73,18 @@
                         <div class="chat-messages" id="chat-container">
                             <% mensajes.forEach(mensaje=> { %>
                                 <div class="chat-message" data-username="<%= mensaje.user %>">
-                                    <%= mensaje.user + ': ' + mensaje.message %>
+                                    <% if (mensaje.user===userA) { %>
+                                        <%= mensaje.message %>
+                                            <% } else { %>
+                                                <%= mensaje.user + ': ' + mensaje.message %>
+                                                    <% } %>
+                                                        <span class="chat-date" data-username="<%= mensaje.user %>">
+                                                            <%= mensaje.formattedTimestamp %>
+                                                        </span>
                                 </div>
                                 <% }); %>
                         </div>
+
                         <div class="input-group mb-3">
                             <input type="text" name="mensaje" class="form-control" style="margin-left: 10px;"
                                 placeholder="Escribe un mensaje..." required>
@@ -91,7 +106,9 @@
         const chatContainer = document.getElementById("chat-container");
         eventSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            const messageP = `<div class="chat-message" data-username="${data.user}">${data.user + ': ' + data.message}</div>`;
+            const messageP = `<div class="chat-message" data-username="${data.user}">${data.user + ': ' + data.message}
+                                    <span class="chat-date" data-username=${data.user}> ${data.formattedTimestamp} </span>
+                            </div>`;
             chatContainer.innerHTML += messageP;
             chatContainer.scrollTop = chatContainer.scrollHeight;
         };
