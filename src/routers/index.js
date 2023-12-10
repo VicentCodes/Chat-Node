@@ -81,7 +81,7 @@ router.post("/vice", async (req, res) => {
     const user = await Login.findOne({ username  });
 
     if (!user || userpassword !== user.pass) {
-      return res.status(401).send("Nombre de usuario o contraseña incorrecta");
+      return res.status(500).render("login", { error: "Nombre de usuario o contraseña incorrecta" });
     }
     //creacion de token
     const usuario = { id: 1, nombre: "Ejemplo" };
