@@ -6,3 +6,5 @@ function closeError() {
   var errorContainer = document.getElementById('errorContainer');
   errorContainer.style.display = 'none';
 }
+
+

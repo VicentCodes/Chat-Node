@@ -18,8 +18,8 @@
   
 }
 
-.contMain{
-  margin-bottom: 10px;
+.input-group {
+  margin-top: auto;
 }
 
 #chat2 .form-control {
@@ -41,10 +41,14 @@
 }
 
 body {
-  border-top: 30px solid #009579;
-  min-height: 100vh;
-  width: 100%;
-  background: #009579;
+      min-height: 100vh;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background: #009579;
+      align-content: center;
+      flex-direction: column;
+      justify-content: center;
 }
 
 .card-header {
@@ -103,8 +107,9 @@ body {
   border: 1px solid #ccc;
   width: calc(100% - 60px);
   border-radius: 10px;
-  margin: 30px;
-  
+  width: fit-content;
+  width: -moz-fit-content;
+  margin: 10px;
   margin: 3;
   overflow: hidden;
 }
@@ -122,6 +127,8 @@ body {
             flex-grow: 1;
             overflow-y: auto;
 }
+
+
 
 .input-group {
   margin-top: auto;
@@ -152,40 +159,6 @@ body {
   color: #000;
 }
 
-.chat-message[data-username="<%= userA %>"] {
-  background-color: #009454;
-  color: #ffffff;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 40px;
-  padding-left: 10px;
-  border-radius: 8px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: relative;
-}
 
-.chat-message[data-username="<%= userA %>"]::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-width: 0 30px 30px 0;
-  border-style: solid;
-  border-color: transparent transparent #009454 transparent;
-}
 
-.chat-message:not([data-username="<%= userA %>"]) {
-  background-color: #e3e3e3;
-  color: #000;
 
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 40px;
-  padding-right: 10px;
-  margin-left: 15px;
-  border-radius: 8px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-}

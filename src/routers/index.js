@@ -10,6 +10,8 @@ const net = require("net");
 const chats = require("../models/chats.js");
 const mensajes = [];
 
+
+
 let mensaje = '';
 let usuario = '';
 
@@ -119,30 +121,34 @@ router.get("/sse", createSessionCheck, (req, res) => {
 });
 
 // Ruta para enviar mensajes
-router.post("/send",createSessionCheck, async (req, res) => {
+router.post("/send", createSessionCheck, async (req, res) => {
   if (usuario) {
-    const message = req.body.mensaje;
-    const nuevoMensaje = new chats({
-      user: req.session.username,
-      message: message,
-    });
-
-    try {
-      await nuevoMensaje.save();
-
-      sseClients.forEach((client) => {
-        client.write(`data: ${JSON.stringify({ user: req.session.username, message })}\n\n`);
+      const message = req.body.mensaje;
+      const nuevoMensaje = new chats({
+          user: req.session.username,
+          message: message,
       });
 
-      res.redirect('/chat');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error al guardar el mensaje en la base de datos");
-    }
+      try {
+          await nuevoMensaje.save();
+
+          sseClients.forEach((client) => {
+            client.write(`data: ${JSON.stringify({
+                user: req.session.username,
+                message,
+                formattedTimestamp: nuevoMensaje.formattedTimestamp 
+            })}\n\n`);
+        });
+          res.redirect('/chat');
+      } catch (error) {
+          console.error(error);
+          res.status(500).send("Error al guardar el mensaje en la base de datos");
+      }
   } else {
-    res.status(400).send("Nombre de usuario no disponible");
+      res.status(400).send("Nombre de usuario no disponible");
   }
 });
+
 
 
 // Logout
