@@ -106,7 +106,7 @@
         const chatContainer = document.getElementById("chat-container");
         eventSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            const messageP =`<div class="chat-message" data-username="${data.user}">${data.user + ': ' + data.message}
+            const messageP = `<div class="chat-message" data-username="${data.user}">${data.user + ': ' + data.message}
                                     <span class="chat-date" data-username=${data.user}> ${data.formattedTimestamp} </span>
                             </div>`;
             chatContainer.innerHTML += messageP;
