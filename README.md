@@ -1,4 +1,4 @@
-# Node-Chat
+# Node-Real-time Chat
 
 Node-Chat is a simple Node.js application that allows users to engage in a global and realtime chat. Users can register, log in, and send messages that are visible to everyone in the chat.
 
