@@ -4,7 +4,7 @@ Node-Chat is a simple Node.js application that allows users to engage in a globa
 
 ## Demo
 
-Explore a live demo of Node-Chat by visiting [ChatDemo](https://chatweb-j27h.onrender.com).
+Explore a live demo of Node-Chat by visiting [ChatDemo](https://chat-node-beta.vercel.app/).
 
 ## Features
 
